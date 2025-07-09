@@ -45,6 +45,22 @@ app.get('/api/employee/:id', async (req, res) => {
     }
 });
 
+// search by name. request body JSON: {"searchTerm": "<name>"}
+app.post('/api/employee/search', async (req, res) => {
+    try {
+        const { searchTerm } = req.body;
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection('employee');
+        const regex = new RegExp(searchTerm, 'i'); // Create a case-insensitive regular expression
+        const employees = await collection.find({ 'name': regex }).toArray();
+        res.json(employees);
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(500).send('You took my stapler... Something went wrong!');
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
