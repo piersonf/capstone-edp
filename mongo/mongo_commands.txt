@@ -1,0 +1,2 @@
+put any commands for creating a mongo database here
+refer to lab WA3236, part 7
