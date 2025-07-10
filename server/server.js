@@ -68,7 +68,7 @@ app.post('/api/employee/:id', async (req, res) => {
         const collection = db.collection('employee');
         const employee = await collection.findOne({ 'id': parseInt(id) });
         // return JSON obj, NOT array
-        if(sender_id !== employee.id && sender_role !== 'HR' && sender_id !== employee.manager_id) {
+        if(sender_id !== employee.id && sender_role !== 'HR Manager' && sender_id !== employee.manager_id) {
             // if the sender is the same as the employee, return all details
             employee.salary = '[REDACTED]'; // redact salary for privacy
         }
