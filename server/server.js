@@ -2,6 +2,10 @@ import express, { json } from 'express';
 import { MongoClient, ObjectId } from 'mongodb';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import {PythonShell} from 'python-shell'
+
+let ml_modeling_filename = 'query_model.py'
+let ml_modeling_path = `../ml_modeling/${ml_modeling_filename}`
 
 const app = express();
 const PORT = 3000;
@@ -55,6 +59,31 @@ app.post('/api/employee/search', async (req, res) => {
         const regex = new RegExp(searchTerm, 'i'); // Create a case-insensitive regular expression
         const employees = await collection.find({ 'name': regex }).toArray();
         res.json(employees);
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(500).send('You took my stapler... Something went wrong!');
+    }
+});
+
+app.get('/api/queryModel', async (req, res) => {
+    try {
+        // const { work_location, role } = req.body;
+        // let features = [work_location, role]
+        
+
+        let options = {
+            // mode: 'text',
+            // scriptPath: ml_modeling_path,
+            // args: features
+            pythonOptions: ['-u']
+        };
+
+        PythonShell.run(ml_modeling_path, options).then(messages =>{
+    
+            console.log(messages);
+            
+        });
+        
     } catch (err) {
         console.error('Error:', err);
         res.status(500).send('You took my stapler... Something went wrong!');
