@@ -4,8 +4,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import {PythonShell} from 'python-shell'
 
-let ml_modeling_filename = 'query_model.py'
-let ml_modeling_path = `../ml_modeling/${ml_modeling_filename}`
+let ml_modeling_path = `../ml_modeling/query_model.py`
 
 const app = express();
 const PORT = 3000;
@@ -65,22 +64,21 @@ app.post('/api/employee/search', async (req, res) => {
     }
 });
 
-app.get('/api/queryModel', async (req, res) => {
+app.post('/api/queryModel', async (req, res) => {
     try {
-        // const { work_location, role } = req.body;
-        // let features = [work_location, role]
+        const { work_location, role } = req.body;
+        let features = [work_location, role]
         
 
         let options = {
-            // mode: 'text',
-            // scriptPath: ml_modeling_path,
-            // args: features
+            mode: 'text',
+            args: features,
             pythonOptions: ['-u']
         };
 
-        PythonShell.run(ml_modeling_path, options).then(messages =>{
+        PythonShell.run(ml_modeling_path, options).then(model_query_response =>{
     
-            console.log(messages);
+            res.send(model_query_response);
             
         });
         
