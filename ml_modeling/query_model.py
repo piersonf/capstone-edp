@@ -1,11 +1,10 @@
 import pickle as pkl
 import sys
 import pandas as pd
-from sklearn.preprocessing import OneHotEncoder
-import math
 
-PICKLE_MODEL_DUMP = './model_dump.pkl'
-PICKLE_ENCODER_DUMP = './encoder_dump.pkl'
+
+PICKLE_MODEL_DUMP = '../ml_modeling/model_dump.pkl'
+PICKLE_ENCODER_DUMP = '../ml_modeling/encoder_dump.pkl'
 
 _, work_location, role = sys.argv
 
