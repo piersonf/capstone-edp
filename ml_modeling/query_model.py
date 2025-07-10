@@ -7,10 +7,11 @@ import math
 PICKLE_MODEL_DUMP = './model_dump.pkl'
 PICKLE_ENCODER_DUMP = './encoder_dump.pkl'
 
-# _, work_location, role = sys.argv
+_, work_location, role = sys.argv
 
-work_location = 'Hartford'
-role = 'Product Manager'
+# work_location = '...'
+# role = 'Product '...'
+# used for testing when running the file directly!
 
 with open(PICKLE_MODEL_DUMP, 'rb') as f:
     model = pkl.load(f)
