@@ -37,6 +37,7 @@ def generate_employee_data():
         work_location = random.choice(LOCATIONS)
         # start_date = datetime.now() - timedelta(days=random.randint(0, 365))
         salary = ROLES[role] + (random.randint(-3, 6) * 5000)
+        password = faker.password()
         manager_id = random.randint(1, NUM_ROWS)
         while manager_id == employee_id:
             manager_id = random.randint(1, NUM_ROWS)
@@ -56,7 +57,8 @@ def generate_employee_data():
             # "start_date": start_date.strftime("%Y-%m-%d"),
             "salary": salary,
             "manager_id": manager_id,
-            "manages": manages
+            "manages": manages,
+            "password": password
         }
         data_rows.append(data_row)
 
@@ -65,5 +67,6 @@ def generate_employee_data():
 
     return data_rows
 
+# Uncomment below lines to re-generate employee data
 generate_employee_data()
 print("Employee data generation complete. Saved to employees.json")
