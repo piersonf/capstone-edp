@@ -12,9 +12,6 @@ In a separate termianl window, navigate to "...capstone-edp/server". Use `npm in
 `use entrdir`
 
 2- In a separate terminal, nagivate to "...capstone-edp/mongo" and execute this command:
-`mongoimport --uri mongodb://localhost:27017/entrdir --collection employee --drop --file employee.json --jsonArray`
-
-3- In that same terminal, execute the following command to add employee logins to the database:
-`mongoimport --uri mongodb://localhost:27017/entrdir --collection login --drop --file employee_logins.json --jsonArray`
+`mongoimport --uri mongodb://localhost:27017/entrdir --collection employee --drop --file employees.json --jsonArray`
 
 Refer to lab WA3236 as an example for React/Express/Mongo
