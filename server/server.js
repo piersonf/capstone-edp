@@ -12,23 +12,27 @@ const dbName = 'entrdir'
 app.use(cors());
 app.use(express.json());
 
-// "adapted" from TSE... some sort of login form?
-// but we'll need to change this for mongo!
+// to login, send a POST request to /api/employee/login with JSON body: {"employee_id": "<id>", "password": "<password>"}
+app.post('/api/login', async (req, res) => {
+    const { employee_id, password } = req.body;
+    try {
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection('login');
+        const employee = await collection.findOne({ 'employee_id': parseInt(employee_id) });
+        // if password is incorrect...
+        if(employee.password !== password) {
+            return res.status(401).json({ message: 'Authentication failed' });
+        }
+        // on successful login, return employee details
+        employee.message = 'Login successful';
+        res.json(employee);
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(500).send('You took my stapler... Something went wrong!');
+    }
+});
 
-// app.post('/employee/login', async (req, res) => {
-//     const { username, password } = req.body;
-//     try {
-//         const result = await pool.query('SELECT uid FROM users WHERE username = $1 AND password = $2', [username, password]);
-//         if (result.rows.length > 0) {
-//             res.status(200).json({ uid: result.rows[0].uid });
-//         } else {
-//             res.status(401).json({ message: 'Authentication failed' });
-//         }
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).json({ message: 'Internal server error' });
-//     }
-// });
 
 app.get('/api/employee/:id', async (req, res) => {
     try {

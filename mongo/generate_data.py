@@ -65,5 +65,26 @@ def generate_employee_data():
 
     return data_rows
 
-generate_employee_data()
-print("Employee data generation complete. Saved to employees.json")
+# Uncomment below lines to re-generate employee data
+# generate_employee_data()
+# print("Employee data generation complete. Saved to employees.json")
+
+def generate_employee_logins():
+    data_rows = []
+    for i in range(NUM_ROWS):
+        employee_id = i + 1
+        password = faker.password()
+
+        data_row = {
+            "employee_id": employee_id,
+            "password": password
+        }
+        data_rows.append(data_row)
+
+    with open("employee_logins.json", "w") as f:
+        json.dump(data_rows, f, indent=4)  # writes to file
+
+    return data_rows
+
+generate_employee_logins()
+print("Employee login data generation complete. Saved to employee_logins.json")
