@@ -1,0 +1,68 @@
+import React, { useState }  from 'react';
+
+const PORT = 3000
+
+function SalaryPrediction() {
+    const [selectedRole, setSelectedRole] = useState('Software Engineer')
+    const [selectedWorkLocation, setSelectedWorkLocation] = useState('New York')
+    const [predictedSalary, setPredictedSalary] = useState('');
+
+    const roles = ['Software Engineer', 'Data Scientist', 
+                    'Product Manager', 'Sales Executive',
+                    'HR Manager', 'Marketing Specialist',
+                    'Customer Support'];
+
+    const workLocations = ['New York', 'Hartford', 'Chicago', 'St. Paul']
+
+    const handleQuery = async (e) => {
+        e.preventDefault();
+        const features = {
+            'role': selectedRole,
+            'work_location': selectedWorkLocation
+        };
+
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(features)
+
+        };
+        fetch(`http://localhost:${PORT}/api/queryModel`, requestOptions)
+            .then(response => response.json())
+            .then(data => setPredictedSalary(data))
+            .catch(error => console.error('Error:', error));
+    }   
+
+    return(
+
+       <>
+        <h1>Salary Predictor </h1>
+        <form onSubmit={handleQuery} className="dropdown">
+            <select value={selectedRole} onChange={(e) => setSelectedRole(e.target.value)} aria-labelledby="dropdownMenu1">
+                {roles.map((role, index) => (
+                    <option value={role} key={index}>
+                        {role}
+                    </option>
+                ))}
+            </select>
+
+            <select value={selectedWorkLocation} onChange={(e) => setSelectedWorkLocation(e.target.value)} aria-labelledby="dropdownMenu2">
+                {workLocations.map((workLocation, index) => (
+                    <option value={workLocation} key={index}>
+                        {workLocation}
+                    </option>
+                ))}
+            </select>
+            <button className="btn btn-primary" type="submit">Predict</button>
+            
+        </form>
+        {predictedSalary && (
+            <div className="mt-3">
+                <p>Predicted Salary: ${predictedSalary}</p>
+            </div>
+        )}
+        </>
+    )
+}
+
+export default SalaryPrediction;
