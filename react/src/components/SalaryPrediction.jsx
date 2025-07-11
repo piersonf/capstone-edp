@@ -1,12 +1,15 @@
 import React, { useState }  from 'react';
+import { Spinner } from 'react-bootstrap';
 import { NumericFormat } from 'react-number-format';
 
 const PORT = 3000
+
 
 function SalaryPrediction() {
     const [selectedRole, setSelectedRole] = useState('Software Engineer')
     const [selectedWorkLocation, setSelectedWorkLocation] = useState('New York')
     const [predictedSalary, setPredictedSalary] = useState('');
+    const [LoadSpinnerStatus, setLoadSpinnerStatus] = useState(false);
 
     const roles = ['Software Engineer', 'Data Scientist', 
                     'Product Manager', 'Sales Executive',
@@ -28,10 +31,17 @@ function SalaryPrediction() {
             body: JSON.stringify(features)
 
         };
+        setLoadSpinnerStatus(true);
         fetch(`http://localhost:${PORT}/api/queryModel`, requestOptions)
             .then(response => response.json())
-            .then(data => setPredictedSalary(data))
-            .catch(error => console.error('Error:', error));
+            .then(data => {
+                setPredictedSalary(data);
+                setLoadSpinnerStatus(false);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                setLoadSpinnerStatus(false);
+            });
     }   
 
     return(
@@ -57,13 +67,16 @@ function SalaryPrediction() {
             <button className="btn btn-primary" type="submit">Predict</button>
             
         </form>
-        {predictedSalary && (
-            <div className="mt-3">
-                <p>Predicted Salary: 
-                    <NumericFormat value={Number(predictedSalary)} displayType={'text'} thousandSeparator={true} prefix={' $'} /> 
-                </p>
-            </div>
-        )}
+        {LoadSpinnerStatus ? (
+            <div><Spinner animation="border" /></div> )
+             : (predictedSalary && (
+                <div className="mt-3">
+                    <p>Predicted Salary: 
+                        <NumericFormat value={Number(predictedSalary)} displayType={'text'} thousandSeparator={true} prefix={' $'} /> 
+                    </p>
+                </div>
+             )
+            )}
         <button className="btn btn-primary" onClick={() => window.history.back()}>Back to Search</button>
         </>
     )
