@@ -11,6 +11,7 @@ import RequireAuth from "./components/RequireAuth";
 import { AuthProvider } from "./hooks/AuthContext";
 import Search from "./components/Search";
 import Employee from "./components/Employee";
+import SalaryPrediction from "./components/SalaryPrediction";
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
               </RequireAuth>
             } />
           <Route path="/Login" element={<LoginForm />} />
+          <Route path="/predict" element={<SalaryPrediction />} />
         </Routes>
       </AuthProvider>
     </Router>
