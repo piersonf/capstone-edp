@@ -46,39 +46,41 @@ function SalaryPrediction() {
 
     return(
 
-       <>
+       <div className="container mt-5">
         <h1>Salary Predictor </h1>
         <form onSubmit={handleQuery} className="dropdown">
-            <select value={selectedRole} onChange={(e) => setSelectedRole(e.target.value)} aria-labelledby="dropdownMenu1">
-                {roles.map((role, index) => (
-                    <option value={role} key={index}>
-                        {role}
-                    </option>
-                ))}
-            </select>
+            <div style= {{width: "600px", justifyContent:"space-around"}} className="form-group d-flex">
+                <select className='form-control me-3' value={selectedRole} onChange={(e) => setSelectedRole(e.target.value)} aria-labelledby="dropdownMenu1">
+                    {roles.map((role, index) => (
+                        <option value={role} key={index}>
+                            {role}
+                        </option>
+                    ))}
+                </select>
 
-            <select value={selectedWorkLocation} onChange={(e) => setSelectedWorkLocation(e.target.value)} aria-labelledby="dropdownMenu2">
-                {workLocations.map((workLocation, index) => (
-                    <option value={workLocation} key={index}>
-                        {workLocation}
-                    </option>
-                ))}
-            </select>
+                <select className='form-control me-3' value={selectedWorkLocation} onChange={(e) => setSelectedWorkLocation(e.target.value)} aria-labelledby="dropdownMenu2">
+                    {workLocations.map((workLocation, index) => (
+                        <option value={workLocation} key={index}>
+                            {workLocation}
+                        </option>
+                    ))}
+                </select>
+                </div>
             <button className="btn btn-primary" type="submit">Predict</button>
             
         </form>
+        <div className= "mt-4">
         {LoadSpinnerStatus ? (
-            <div><Spinner animation="border" /></div> )
+            <Spinner animation="border" /> )
              : (predictedSalary && (
-                <div className="mt-3">
                     <p>Predicted Salary: 
                         <NumericFormat value={Number(predictedSalary)} displayType={'text'} thousandSeparator={true} prefix={' $'} /> 
                     </p>
-                </div>
              )
             )}
+            </div>
         <button className="btn btn-primary" onClick={() => window.history.back()}>Back to Search</button>
-        </>
+        </div>
     )
 }
 
