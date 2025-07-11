@@ -1,4 +1,5 @@
 import React, { useState }  from 'react';
+import { NumericFormat } from 'react-number-format';
 
 const PORT = 3000
 
@@ -58,7 +59,9 @@ function SalaryPrediction() {
         </form>
         {predictedSalary && (
             <div className="mt-3">
-                <p>Predicted Salary: ${predictedSalary}</p>
+                <p>Predicted Salary: 
+                    <NumericFormat value={Number(predictedSalary)} displayType={'text'} thousandSeparator={true} prefix={' $'} /> 
+                </p>
             </div>
         )}
         <button className="btn btn-primary" onClick={() => window.history.back()}>Back to Search</button>
