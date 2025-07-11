@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../hooks/AuthContext";
+import { useNavigate } from 'react-router-dom';
 
 const Search = ({ employeeData }) => {
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredData, setFilteredData] = useState(employeeData);
     let { user, logout } = useAuth();
+    const navigate = useNavigate();
     // if auth isn't working (more likely than it seems!!!) pull from local
     if(!user){
         user = JSON.parse(localStorage.getItem('user_id'));
@@ -61,7 +63,8 @@ const Search = ({ employeeData }) => {
                     </li>
                 ))}
             </ul>
-            <button className="btn btn-primary mt-3" onClick={() => logout()}> Log out</button>
+            <button className="btn btn-primary mt-3" onClick={() => logout()}>Log out</button>
+            <button className="btn btn-primary mt-3" onClick={() => navigate("/predict")}>Predict Salary</button>
         </div>
     );
 }
