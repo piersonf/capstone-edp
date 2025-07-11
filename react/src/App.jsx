@@ -30,7 +30,11 @@ function App() {
               </RequireAuth>
             } />
           <Route path="/Login" element={<LoginForm />} />
-          <Route path="/predict" element={<SalaryPrediction />} />
+          <Route path="/predict" element={
+              <RequireAuth>
+                <SalaryPrediction />
+              </RequireAuth>
+            } />
         </Routes>
       </AuthProvider>
     </Router>

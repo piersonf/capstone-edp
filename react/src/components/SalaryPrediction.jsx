@@ -61,6 +61,7 @@ function SalaryPrediction() {
                 <p>Predicted Salary: ${predictedSalary}</p>
             </div>
         )}
+        <button className="btn btn-primary" onClick={() => window.history.back()}>Back to Search</button>
         </>
     )
 }
