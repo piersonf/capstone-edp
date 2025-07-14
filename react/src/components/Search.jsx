@@ -49,6 +49,14 @@ const Search = ({ employeeData }) => {
     return (
         <div className="container mt-5">
             <h1>Welcome back, {user?.name} </h1>
+            <div className="d-flex justify-content-center flex-wrap mt-3">
+                <div className="mx-2"><strong>ID:</strong> {user?.id}</div>
+                <div className="mx-2"><strong>Role:</strong> {user?.role}</div>
+                <div className="mx-2"><strong>Location:</strong> {user?.work_location}</div>
+                <div className="mx-2"><strong>Phone Number:</strong> {user?.phone}</div>
+                <div className="mx-2"><strong>Salary:</strong> {user?.salary}</div>
+            </div>
+            <p className="text-center mt-3">Welcome to the employee search page. You can search for employees by their name or ID.</p>
             <input
                 type="text"
                 className="form-control mb-3"

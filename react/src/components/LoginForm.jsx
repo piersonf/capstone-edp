@@ -19,7 +19,7 @@ function LoginForm() {
             <h1 className='login-header'>Login</h1>
             <form onSubmit={handleLogin} className="mt-5">
                 <div className="form-group">
-                    <label htmlFor="employee_id">employee_id</label>
+                    <label htmlFor="employee_id"></label>
                     <input
                         type="text"
                         className="form-control"
@@ -30,7 +30,7 @@ function LoginForm() {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="password">Password</label>
+                    <label htmlFor="password"></label>
                     <input
                         type="password"
                         className="form-control"
