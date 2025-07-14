@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../hooks/AuthContext";
 import { useNavigate } from 'react-router-dom';
+import { NumericFormat } from 'react-number-format';
+
 
 const Search = ({ employeeData }) => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -53,8 +55,10 @@ const Search = ({ employeeData }) => {
                 <div className="mx-2"><strong>ID:</strong> {user?.id}</div>
                 <div className="mx-2"><strong>Role:</strong> {user?.role}</div>
                 <div className="mx-2"><strong>Location:</strong> {user?.work_location}</div>
-                <div className="mx-2"><strong>Phone Number:</strong> {user?.phone}</div>
-                <div className="mx-2"><strong>Salary:</strong> {user?.salary}</div>
+                <div className="mx-2"><strong>Phone Number:</strong> {user?.phone.slice(0,)}</div>
+                <div className="mx-2"><strong>Salary: </strong> 
+                {<NumericFormat value={Number(user?.salary)} displayType={'text'} thousandSeparator={true} prefix={' $'} />}
+                </div>
             </div>
             <p className="text-center mt-3">Welcome to the employee search page. You can search for employees by their name or ID.</p>
             <input
